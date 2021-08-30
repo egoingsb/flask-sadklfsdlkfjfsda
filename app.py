@@ -1,6 +1,5 @@
 import sqlite3
-from flask import Flask
-from flask import request
+from flask import Flask, redirect, request
 import random
 app = Flask(__name__)
 
@@ -12,7 +11,7 @@ def create_process():
     sql = "INSERT INTO topic (title, body) VALUES('"+title+"', '"+body+"')"
     cnt.execute(sql)
     cnt.commit()
-    return "성공!"
+    return redirect("/")
 
 @app.route("/read/<topicid>")
 def read(topicid): 
