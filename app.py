@@ -9,10 +9,10 @@ def read(topicid):
     result = cnt.execute('SELECT * FROM topic')
     topics = result.fetchall()   
 
-    nav = '<ol>'
+    nav = '<ul>'
     for topic in topics:
         nav = nav + '<li><a href="/read/'+str(topic[0])+'">'+topic[1]+'</a></li>'
-    nav = nav + '</ol>'
+    nav = nav + '</ul>'
 
     result = cnt.execute('SELECT * FROM topic WHERE id='+topicid)
     topic = result.fetchone()
@@ -42,10 +42,10 @@ def home():
     topics = result.fetchall()
     print('topics', topics)
 
-    nav = '<ol>'
+    nav = '<ul>'
     for topic in topics:
         nav = nav + '<li><a href="/read/'+str(topic[0])+'">'+topic[1]+'</a></li>'
-    nav = nav + '</ol>'
+    nav = nav + '</ul>'
     
     content = '''
         <!DOCTYPE html>
