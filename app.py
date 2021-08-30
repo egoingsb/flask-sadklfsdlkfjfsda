@@ -7,13 +7,17 @@ app = Flask(__name__)
 def read(topicid): 
     cnt = sqlite3.connect('topics.db')
     result = cnt.execute('SELECT * FROM topic')
-    topics = result.fetchall()
-    print('topics', topics)
+    topics = result.fetchall()   
 
     nav = '<ol>'
     for topic in topics:
         nav = nav + '<li><a href="/read/'+str(topic[0])+'">'+topic[1]+'</a></li>'
     nav = nav + '</ol>'
+
+    result = cnt.execute('SELECT * FROM topic WHERE id='+topicid)
+    topic = result.fetchone()
+    print('topic', topic)
+    content = '<h2>'+topic[1]+'</h2>'+topic[2]
     
     content = '''
         <!DOCTYPE html>
@@ -21,8 +25,7 @@ def read(topicid):
             <body>
                 <h1><a href="/">WEB</a></h1>
                 '''+nav+'''
-                <h2>Welcome</h2>
-                Hello, WEB!
+                '''+content+'''
             </body>
         </html>
     '''
