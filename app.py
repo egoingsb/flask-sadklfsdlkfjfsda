@@ -26,6 +26,7 @@ def read(topicid):
                 <h1><a href="/">WEB</a></h1>
                 '''+nav+'''
                 '''+content+'''
+                <p><a href="/create">create</a></p>
             </body>
         </html>
     '''
@@ -33,7 +34,29 @@ def read(topicid):
 
 @app.route("/create")
 def create():    
-    return "<h1>Create</h1>"
+    cnt = sqlite3.connect('topics.db')
+    result = cnt.execute('SELECT * FROM topic')
+    topics = result.fetchall()
+    print('topics', topics)
+
+    nav = '<ul>'
+    for topic in topics:
+        nav = nav + '<li><a href="/read/'+str(topic[0])+'">'+topic[1]+'</a></li>'
+    nav = nav + '</ul>'
+    
+    content = '''
+        <!DOCTYPE html>
+        <html>
+            <body>
+                <h1><a href="/">WEB</a></h1>
+                '''+nav+'''
+                <h2>Welcome</h2>
+                Hello, WEB!
+                <p><a href="/create">create</a></p>
+            </body>
+        </html>
+    '''
+    return content
 
 @app.route("/")
 def home():
@@ -55,6 +78,7 @@ def home():
                 '''+nav+'''
                 <h2>Welcome</h2>
                 Hello, WEB!
+                <p><a href="/create">create</a></p>
             </body>
         </html>
     '''
