@@ -1,7 +1,18 @@
 import sqlite3
 from flask import Flask
+from flask import request
 import random
 app = Flask(__name__)
+
+@app.route("/create_process", methods=['POST'])
+def create_process():    
+    cnt = sqlite3.connect('topics.db')
+    title = request.form['title']
+    body = request.form['body']
+    sql = "INSERT INTO topic (title, body) VALUES('"+title+"', '"+body+"')"
+    cnt.execute(sql)
+    cnt.commit()
+    return "성공!"
 
 @app.route("/read/<topicid>")
 def read(topicid): 
