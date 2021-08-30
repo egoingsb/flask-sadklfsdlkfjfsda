@@ -9,9 +9,9 @@ def create_process():
     title = request.form['title']
     body = request.form['body']
     sql = "INSERT INTO topic (title, body) VALUES('"+title+"', '"+body+"')"
-    cnt.execute(sql)
+    result = cnt.execute(sql)
     cnt.commit()
-    return redirect("/")
+    return redirect("/read/"+str(result.lastrowid))
 
 @app.route("/read/<topicid>")
 def read(topicid): 
