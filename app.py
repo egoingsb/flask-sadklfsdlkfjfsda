@@ -19,7 +19,7 @@ def read(topicid):
     print('topic', topic)
     content = '<h2>'+topic[1]+'</h2>'+topic[2]
     
-    content = '''
+    html = '''
         <!DOCTYPE html>
         <html>
             <body>
@@ -30,7 +30,7 @@ def read(topicid):
             </body>
         </html>
     '''
-    return content
+    return html
 
 @app.route("/create")
 def create():    
@@ -44,19 +44,22 @@ def create():
         nav = nav + '<li><a href="/read/'+str(topic[0])+'">'+topic[1]+'</a></li>'
     nav = nav + '</ul>'
     
-    content = '''
+    html = '''
         <!DOCTYPE html>
         <html>
             <body>
                 <h1><a href="/">WEB</a></h1>
                 '''+nav+'''
                 <h2>Welcome</h2>
-                Hello, WEB!
-                <p><a href="/create">create</a></p>
+                <form method="post" action="/create_process">
+                    <p><input type="text" name="title" placeholder="title" ></p>
+                    <p><textarea name="body" placeholder="body" ></textarea></p>
+                    <p><input type="submit" value="create"></p>
+                </form> 
             </body>
         </html>
     '''
-    return content
+    return html
 
 @app.route("/")
 def home():
